@@ -1,0 +1,15 @@
+{
+  "name": "bisect",
+  "private": true,
+  "description": "bisect — incident tracking and deployment forensics",
+  "scripts": {
+    "setup": "npm install --prefix server && npm install --prefix web",
+    "dev:server": "npm run dev --prefix server",
+    "dev:web": "npm run dev --prefix web",
+    "build": "npm run build --prefix web && npm run build --prefix server",
+    "start": "npm start --prefix server",
+    "test": "npm test --prefix server",
+    "e2e": "npm run e2e:install && node e2e/run.mjs",
+    "e2e:install": "npm install --prefix e2e --no-audit --no-fund"
+  }
+}
