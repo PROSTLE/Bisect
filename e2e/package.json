@@ -1,0 +1,12 @@
+{
+  "name": "bisect-e2e",
+  "private": true,
+  "type": "module",
+  "description": "Drives a real browser through every control in bisect and cross-checks each action against the API.",
+  "scripts": {
+    "test": "node run.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}
