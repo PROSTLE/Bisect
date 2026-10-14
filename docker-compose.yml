@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: bisect
+      POSTGRES_PASSWORD: bisect
+      POSTGRES_DB: bisect
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U bisect']
+      interval: 3s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://bisect:bisect@db:5432/bisect
+      AUTH_SECRET: ${AUTH_SECRET:?Set AUTH_SECRET (32+ random characters) in .env}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:4000}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+    ports:
+      - '4000:4000'
+
+volumes:
+  pgdata:
